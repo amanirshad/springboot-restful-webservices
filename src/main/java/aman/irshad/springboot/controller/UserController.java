@@ -1,5 +1,6 @@
 package aman.irshad.springboot.controller;
 
+import aman.irshad.springboot.dto.UserDto;
 import aman.irshad.springboot.entity.User;
 import aman.irshad.springboot.service.UserService;
 import lombok.AllArgsConstructor;
@@ -15,13 +16,13 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
+
     private UserService userService;
 
     // build create user REST API
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user){
-        User savedUser = userService.createUser(user);
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
+        UserDto savedUser = userService.createUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 

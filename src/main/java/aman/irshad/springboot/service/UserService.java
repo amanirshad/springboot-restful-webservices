@@ -1,12 +1,13 @@
 package aman.irshad.springboot.service;
 
+import aman.irshad.springboot.dto.UserDto;
 import aman.irshad.springboot.entity.User;
 
 import java.util.List;
 
 public interface UserService {
 
-    User createUser(User user);
+    UserDto createUser(UserDto user);
 
     User getUserById(Long userId);
 

@@ -1,5 +1,6 @@
 package aman.irshad.springboot.service.impl;
 
+import aman.irshad.springboot.dto.UserDto;
 import aman.irshad.springboot.entity.User;
 import aman.irshad.springboot.repository.UserRepository;
 import aman.irshad.springboot.service.UserService;
@@ -14,13 +15,27 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
+
     private UserRepository userRepository;
 
 
     @Override
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public UserDto createUser(UserDto userDto) {
+
+
+        //convert userDto into User JPA entity
+        User user = new User(
+                userDto.getId(),
+                userDto.getFirstName(),
+                userDto.getLastName(),
+                userDto.getEmail()
+        );
+        User savedUser = userRepository.save(user);
+        //convert User JPA Entity to userDto
+        UserDto savedUserDto = new UserDto(savedUser.getId(),
+                savedUser.getFirstName(), savedUser.getLastName(),
+                savedUser.getEmail());
+        return savedUserDto;
     }
 
     @Override
