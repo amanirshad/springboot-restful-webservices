@@ -2,6 +2,7 @@ package aman.irshad.springboot.service.impl;
 
 import aman.irshad.springboot.dto.UserDto;
 import aman.irshad.springboot.entity.User;
+import aman.irshad.springboot.mapper.UserMapper;
 import aman.irshad.springboot.repository.UserRepository;
 import aman.irshad.springboot.service.UserService;
 import lombok.AllArgsConstructor;
@@ -24,16 +25,15 @@ public class UserServiceImpl implements UserService {
 
 
         //convert userDto into User JPA entity
-        User user = new User(
-                userDto.getFirstName(),
-                userDto.getLastName(),
-                userDto.getEmail()
-        );
+        User user = UserMapper.mapToUser(userDto);
+
+
         User savedUser = userRepository.save(user);
+
+
         //convert User JPA Entity to userDto
-        UserDto savedUserDto = new UserDto(savedUser.getId(),
-                savedUser.getFirstName(), savedUser.getLastName(),
-                savedUser.getEmail());
+        UserDto savedUserDto = UserMapper.mapToUserDto(savedUser);
+
         return savedUserDto;
     }
 
