@@ -1,5 +1,6 @@
 package aman.irshad.springboot.controller;
 
+import aman.irshad.springboot.dto.UserDto;
 import aman.irshad.springboot.entity.User;
 import aman.irshad.springboot.service.UserService;
 import lombok.AllArgsConstructor;
@@ -15,38 +16,38 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
+
     private UserService userService;
 
     // build create user REST API
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user){
-        User savedUser = userService.createUser(user);
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
+        UserDto savedUser = userService.createUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
     // build get user by id REST API
     // http://localhost:8080/api/users/2
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") Long userId){
-        User user = userService.getUserById(userId);
+    public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long userId){
+        UserDto user = userService.getUserById(userId);
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
 
     // build get all users REST API
     // http://localhost:8080/users
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers(){
-        List<User> users = userService.getAllUsers();
+    public ResponseEntity<List<UserDto>> getAllUsers(){
+        List<UserDto> users = userService.getAllUsers();
         return new ResponseEntity<>(users,HttpStatus.OK);
     }
 
     // build update user REST API
     // http://localhost:8080/api/users/1
     @PutMapping("{id}")
-    public ResponseEntity<User> updateUser(@RequestBody User user,@PathVariable("id") Long userId){
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto user,@PathVariable("id") Long userId){
         user.setId(userId);
-        User updatedUser = userService.updateUser(user);
+        UserDto updatedUser = userService.updateUser(user);
         return new ResponseEntity<>(updatedUser,HttpStatus.OK);
     }
 
