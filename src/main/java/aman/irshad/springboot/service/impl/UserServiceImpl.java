@@ -25,7 +25,6 @@ public class UserServiceImpl implements UserService {
 
         //convert userDto into User JPA entity
         User user = new User(
-                userDto.getId(),
                 userDto.getFirstName(),
                 userDto.getLastName(),
                 userDto.getEmail()
