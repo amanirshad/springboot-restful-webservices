@@ -2,13 +2,17 @@ package aman.irshad.springboot.controller;
 
 import aman.irshad.springboot.dto.UserDto;
 import aman.irshad.springboot.entity.User;
+import aman.irshad.springboot.exception.ErrorDetails;
+import aman.irshad.springboot.exception.ResourceNotFoundException;
 import aman.irshad.springboot.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -58,4 +62,16 @@ public class UserController {
         return new ResponseEntity<>("User Successfully Deleted",HttpStatus.OK);
     }
 
+    // Controller specific handling and return custom responses
+//    @ExceptionHandler(ResourceNotFoundException.class)
+//    public ResponseEntity<ErrorDetails> handleResourceNotFoundException(ResourceNotFoundException exception,
+//                                                                        WebRequest webRequest){
+//        ErrorDetails errorDetails = new ErrorDetails(
+//                LocalDateTime.now(),
+//                exception.getMessage(),
+//                webRequest.getDescription(false),
+//                "USER_NOT_FOUND"
+//        );
+//        return new ResponseEntity<>(errorDetails,HttpStatus.NOT_FOUND);
+//    }
 }
