@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -12,7 +15,15 @@ import lombok.Setter;
 public class UserDto {
 
     private Long id;
+    // User first name should not be null or empty
+    @NotEmpty
     private String firstName;
+    // User last name should not be null or empty
+    @NotEmpty
     private String lastName;
+    // User Email should not be null or empty
+    // Email address should be valid
+    @NotEmpty
+    @Email
     private String email;
 }

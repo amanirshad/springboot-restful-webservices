@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,7 +26,8 @@ public class UserController {
 
     // build create user REST API
     @PostMapping
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user){
+
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto user){
         UserDto savedUser = userService.createUser(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
@@ -49,7 +51,7 @@ public class UserController {
     // build update user REST API
     // http://localhost:8080/api/users/1
     @PutMapping("{id}")
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto user,@PathVariable("id") Long userId){
+    public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto user,@PathVariable("id") Long userId){
         user.setId(userId);
         UserDto updatedUser = userService.updateUser(user);
         return new ResponseEntity<>(updatedUser,HttpStatus.OK);
