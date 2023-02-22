@@ -2,6 +2,7 @@ package aman.irshad.springboot.service.impl;
 
 import aman.irshad.springboot.dto.UserDto;
 import aman.irshad.springboot.entity.User;
+import aman.irshad.springboot.exception.EmailAlreadyExistsException;
 import aman.irshad.springboot.exception.ResourceNotFoundException;
 import aman.irshad.springboot.mapper.AutoUserMapper;
 import aman.irshad.springboot.mapper.UserMapper;
@@ -39,6 +40,12 @@ public class UserServiceImpl implements UserService {
 
         //convert userDto into User JPA Entity using MapStruct
         User user = AutoUserMapper.MAPPER.mapToUser(userDto);
+
+        Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
+
+        if(optionalUser.isPresent()){
+            throw new EmailAlreadyExistsException("Email already exists for User");
+        }
 
         User savedUser = userRepository.save(user);
 
